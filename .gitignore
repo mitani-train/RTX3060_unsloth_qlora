@@ -3,6 +3,7 @@
 
 # 学習出力
 outputs/
+unsloth_compiled_cache/
 
 # Python
 __pycache__/
