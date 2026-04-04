@@ -1,0 +1,23 @@
+model:
+  name: unsloth/Llama-3.1-8B-Instruct-bnb-4bit
+  max_seq_length: 1024
+
+dataset:
+  name: APTO-001/japanese-reasoning-dataset-sample
+  split: train[:100]
+
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0
+ # dropout: 0.05
+
+
+training:
+  batch_size: 1
+  grad_accum: 8
+  lr: 0.0002
+  epochs: 1
+
+output:
+  dir: outputs/APTO-001
