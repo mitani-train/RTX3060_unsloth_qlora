@@ -102,6 +102,8 @@ python train.py configs/APTO-001.yaml
 
 ```yaml
 # configs/APTO-001.yaml（例）
+QLoRA: True
+
 model:
   name: unsloth/Llama-3.1-8B-Instruct-bnb-4bit
   max_seq_length: 1024
@@ -114,6 +116,8 @@ lora:
   r: 8
   alpha: 16
   dropout: 0
+ # dropout: 0.05
+
 
 training:
   batch_size: 1
@@ -122,8 +126,8 @@ training:
   epochs: 1
 
 output:
-  dir: outputs/APTO-001_v1
-```
+  dir: outputs/APTO-001
+  ```
 
 ### 主なパラメータの説明
 
@@ -178,13 +182,13 @@ outputs/
 学習済みモデルを使って推論を実行し、ベースモデルとの比較を行います。
 
 ```bash
-python compare_inference.py outputs/<CONFIG_NAME>/final/
+python compare_inference.py configs/<CONFIG_NAME>.yaml
 ```
 
 ### 実行例
 
 ```bash
-python compare_inference.py outputs/APTO_v1/final/
+python .\compare_inference.py .\configs\APTO-001_lora.yaml
 ```
 
 `compare_inference.py` はベースモデルとファインチューニング済みモデルの出力を並べて比較します。
