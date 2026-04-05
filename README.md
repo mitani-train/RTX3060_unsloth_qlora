@@ -188,7 +188,7 @@ python compare_inference.py configs/<CONFIG_NAME>.yaml
 ### 実行例
 
 ```bash
-python .\compare_inference.py .\configs\APTO-001_lora.yaml
+python .\compare_inference.py .\configs\APTO-001.yaml
 ```
 
 `compare_inference.py` はベースモデルとファインチューニング済みモデルの出力を並べて比較します。
