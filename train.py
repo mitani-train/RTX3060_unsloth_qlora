@@ -58,7 +58,7 @@ def main():
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=CONFIG["model"]["name"],
         max_seq_length=CONFIG["model"]["max_seq_length"],
-        load_in_4bit=True,
+        load_in_4bit=CONFIG["QLoRA"], # QLoRAならTrue、LoRAならFalse
     )
 
     if tokenizer.pad_token is None:

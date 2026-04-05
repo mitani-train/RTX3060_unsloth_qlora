@@ -5,9 +5,18 @@ from unsloth import FastLanguageModel
 from peft import PeftModel
 import gc
 import sys
+import yaml
+import os
 
-BASE_MODEL = "unsloth/Llama-3.1-8B-Instruct-bnb-4bit"
-LORA_PATH = sys.argv[1]
+def load_config(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+
+
+config_path = sys.argv[1]
+CONFIG = load_config(config_path)
+BASE_MODEL = CONFIG["model"]["name"]
 
 PROMPT = """Below is an instruction that describes a task.
 
@@ -44,7 +53,7 @@ def main():
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         BASE_MODEL,
-        load_in_4bit=True,
+        load_in_4bit=CONFIG["QLoRA"]
     )
 
     FastLanguageModel.for_inference(model)
@@ -64,10 +73,11 @@ def main():
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         BASE_MODEL,
-        load_in_4bit=True,
+        load_in_4bit=CONFIG["QLoRA"],
     )
+    save_path = os.path.join(CONFIG["output"]["dir"], "final")
 
-    model = PeftModel.from_pretrained(model, LORA_PATH)
+    model = PeftModel.from_pretrained(model, save_path)
 
     FastLanguageModel.for_inference(model)
 
